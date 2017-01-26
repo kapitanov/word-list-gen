@@ -17,26 +17,38 @@ class Program
         Console.WriteLine("*******************************************************************************");
         Console.WriteLine();
 
-        if (args.Length <= 0)
+        var ns = args.Select(arg =>
+        {
+            int n;
+            if (!int.TryParse(arg, out n))
+            {
+                return 0;
+            }
+
+            return n;
+        })
+        .Where(n => n > 2)
+        .ToArray();
+
+        if (ns.Length <= 0)
         {
             Console.WriteLine("Wrong parameters!");
             Console.WriteLine("Usage:");
-            Console.WriteLine("word-list-gen N");
+            Console.WriteLine("word-list-gen N1 [N2] [N3] ...");
             Environment.Exit(1);
             return;
         }
 
-        var n = int.Parse(args[0]);
-        if (n <= 2)
+        foreach (var n in ns)
         {
-            Console.WriteLine("Wrong parameters!");
-            Console.WriteLine("N should be > 2");
-            Environment.Exit(1);
-            return;
+            Generate(n);
         }
+    }
 
+    static void Generate(int n)
+    {
         var source = GetSourceFile();
-        Console.WriteLine("Generating partial dictionary...");
+        Console.WriteLine($"Generating partial dictionary for N = {n}...");
 
         var target = GetOutputFileName(n);
 
@@ -56,7 +68,7 @@ class Program
                     continue;
                 }
 
-                writer.WriteLine(line.ToLowerInvariant());
+                writer.WriteLine(line.ToUpperInvariant());
                 filteredCount++;
             }
         }

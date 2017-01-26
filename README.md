@@ -26,7 +26,7 @@ Run
 ---
 
 ```shell
-./word-list-gen N
+./word-list-gen N1 [N2] [N3] ...
 ```
 
-Where `N` is an integer >=3
+Where `Nx` is an integer >=3
