@@ -1,13 +1,6 @@
 word-list-gen
 =============
 
-How to run
-----------
-
-```shell
-git clone https://git
-```
-
 Prerequisite
 ------------
 
